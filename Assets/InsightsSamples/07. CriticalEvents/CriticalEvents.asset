@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: CriticalEvents
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 07-critical-events
+  number: 7
+  title: Critical events
+  series: Training results
+  icon: siren
+  scenario: Clear a jammed conveyor
+  realWorld: "Operators clear jams on a running packaging conveyor several times a shift. Reaching in before hitting the emergency stop can cost a hand, so it's recorded as a critical choice and fails the task outright, even if the jam is then cleared."
+  teaches: EventCritical
+  sceneName: CriticalEvents
+  appWidePrefab: {fileID: 0}
+  whatThisShows: EventCritical flags a safety violation. Reaching into a running
+    conveyor fails the task on its own, even if the learner then clears the jam.
+  tryThis:
+  - Click Begin, press the emergency stop, then clear the jammed carton to pass.
+  - 'Start again and click the carton while the belt runs: a critical event, and
+    the task fails however it ends.'
+  watchFor:
+  - EventCritical("hand_in_running_conveyor"). The SDK records it as CRITICAL_ABXR_hand_in_running_conveyor.
+  - EventAssessmentComplete("conveyor_jam_clearing") with Fail after a critical event.
+  lessonScript: CriticalEventsSample.cs
+  lessonScriptLine: 41
+  dashboardNotes:
+  - methodPrefix: EventCritical
+    note: Critical Choices chart
+  - methodPrefix: EventAssessment
+    note: 'Assessment results: pass rate, scores, and time to complete'
+  expectedOnPass:
+  - method: EventAssessmentStart
+    name: conveyor_jam_clearing
+    count: 1
+    atLeast: 0
+    status: 
+  - method: EventCritical
+    name: 
+    count: 0
+    atLeast: 0
+    status: 
+  - method: EventAssessmentComplete
+    name: conveyor_jam_clearing
+    count: 1
+    atLeast: 0
+    status: Pass
+  expectedOnFail:
+  - method: EventAssessmentStart
+    name: conveyor_jam_clearing
+    count: 1
+    atLeast: 0
+    status: 
+  - method: EventCritical
+    name: CRITICAL_ABXR_hand_in_running_conveyor
+    count: 1
+    atLeast: 0
+    status: 
+  - method: EventAssessmentComplete
+    name: conveyor_jam_clearing
+    count: 1
+    atLeast: 0
+    status: Fail

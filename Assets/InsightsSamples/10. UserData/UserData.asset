@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: UserData
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 10-user-data
+  number: 10
+  title: User data
+  series: Context & identity
+  icon: id-card
+  scenario: Employee badge at a shared headset
+  realWorld: "A cart of shared headsets serves a whole shift. Each employee taps their badge first, so their sessions and results belong to them by employee ID, not to whichever headset they picked up."
+  teaches: SetUserData, GetUserData, GetUserId
+  sceneName: UserData
+  appWidePrefab: {fileID: 0}
+  whatThisShows: Identify the learner with SetUserData, and read back what Insights
+    knows with GetUserData and GetUserId. Identity lives in userData, never in event
+    metadata.
+  tryThis:
+  - Tap Sam's badge (E-1042) to set the user data, then click Check user data.
+  - 'Tap the visitor badge: no user data is set.'
+  - SetUserData needs a signed-in session. Sign in (sample 01) to see it sync.
+  watchFor:
+  - SetUserData makes no record. Once the SDK has signed in again, an OnUserDataSyncCompleted
+    row (System filter).
+  - 'Check user data shows GetUserId() and GetUserData(): null until signed in.'
+  lessonScript: UserDataSample.cs
+  lessonScriptLine: 26
+  dashboardNotes:
+  - methodPrefix: OnUserDataSync
+    note: 'Learner identity: who each session''s records belong to'
+  expectedOnPass: []
+  expectedOnFail: []

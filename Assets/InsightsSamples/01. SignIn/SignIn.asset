@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: SignIn
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 01-sign-in
+  number: 1
+  title: Sign-in
+  series: Getting connected
+  icon: log-in
+  scenario: Front-desk sign-in
+  realWorld: "A training center's front-desk device starts the day. ArborXR manages the device, so the app already knows which organization it belongs to and signs in to Insights by itself."
+  teaches: OnAuthCompleted, StartAuthentication
+  sceneName: SignIn
+  appWidePrefab: {fileID: 1913968849945899720, guid: a06f61d06e6134842b03fb764f473541, type: 3}
+  whatThisShows: 'How the app learns the sign-in result through OnAuthCompleted. The
+    app passes nothing in: the SDK gets the organization from ArborXR device management,
+    an org token, or a pairing.'
+  tryThis:
+  - Click Sign in again and watch the OnAuthCompleted row.
+  - 'Read Organization from on the screen: it says where the SDK got this device''s
+    organization.'
+  - 'On a device ArborXR doesn''t manage, sign-in reports No organization identity
+    until the device pairs: that''s sample 18.'
+  watchFor:
+  - 'OnAuthCompleted: true when signed in, false with the reason when not.'
+  lessonScript: SignInSample.cs
+  lessonScriptLine: 35
+  dashboardNotes: []
+  expectedOnPass:
+  - method: OnAuthCompleted
+    name: signed_in
+    count: 1
+    atLeast: 0
+    status: 
+  expectedOnFail:
+  - method: OnAuthCompleted
+    name: sign_in_failed
+    count: 1
+    atLeast: 0
+    status: 

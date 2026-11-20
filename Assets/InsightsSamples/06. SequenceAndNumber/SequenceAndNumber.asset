@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: SequenceAndNumber
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 06-sequence-and-number
+  number: 6
+  title: Sequencing and numbers
+  series: Training results
+  icon: list-ordered
+  scenario: 'Clinic: hand hygiene steps and an infusion rate'
+  realWorld: "Clinical staff refresh two routine skills: hand hygiene in the right order, and setting an infusion pump. Washing steps out of order spreads infection, and entering the volume instead of the hourly rate is a known, serious medication error. Educators want to see exactly which mistakes happen."
+  teaches: InteractionType.Sequencing, InteractionType.Number
+  sceneName: SequenceAndNumber
+  appWidePrefab: {fileID: 0}
+  whatThisShows: Two more interaction types. Sequencing sends the learner's order
+    as comma-separated IDs; Number sends the value they entered. Each is Correct
+    or Incorrect against the right answer.
+  tryThis:
+  - Click Begin, click the hand hygiene cards in the order you'd do them, then set
+    the pump to 50 mL/h to pass.
+  - 'Start again: rinse before scrubbing, or enter 500 (the volume, not the rate),
+    to fail.'
+  - 'Leave mid-task: the open interaction closes as Neutral.'
+  watchFor:
+  - EventInteractionComplete("hand_hygiene_sequence") with the order as the response,
+    e.g. "wet,soap,scrub,rinse,dry".
+  - EventInteractionComplete("infusion_rate_ml_per_h") with the entered rate as the
+    response.
+  lessonScript: SequenceAndNumberSample.cs
+  lessonScriptLine: 55
+  dashboardNotes:
+  - methodPrefix: EventInteraction
+    note: 'Interaction results: accuracy and the responses learners give'
+  - methodPrefix: EventAssessment
+    note: 'Assessment results: pass rate, scores, and time to complete'
+  expectedOnPass:
+  - method: EventAssessmentStart
+    name: clinic_skills_check
+    count: 1
+    status: 
+  - method: EventInteractionStart
+    name: 
+    count: 2
+    status: 
+  - method: EventInteractionComplete
+    name: hand_hygiene_sequence
+    count: 1
+    status: Correct
+  - method: EventInteractionComplete
+    name: hand_hygiene_sequence
+    count: 1
+    status: response=wet,soap,scrub,rinse,dry
+  - method: EventInteractionComplete
+    name: infusion_rate_ml_per_h
+    count: 1
+    status: Correct
+  - method: EventInteractionComplete
+    name: infusion_rate_ml_per_h
+    count: 1
+    status: response=50
+  - method: EventAssessmentComplete
+    name: clinic_skills_check
+    count: 1
+    status: Pass
+  expectedOnFail:
+  - method: EventAssessmentStart
+    name: clinic_skills_check
+    count: 1
+    status: 
+  - method: EventInteractionStart
+    name: 
+    count: 2
+    status: 
+  - method: EventInteractionComplete
+    name: hand_hygiene_sequence
+    count: 1
+    status: Incorrect
+  - method: EventInteractionComplete
+    name: hand_hygiene_sequence
+    count: 1
+    status: response=wet,soap,rinse,scrub,dry
+  - method: EventInteractionComplete
+    name: infusion_rate_ml_per_h
+    count: 1
+    status: Incorrect
+  - method: EventInteractionComplete
+    name: infusion_rate_ml_per_h
+    count: 1
+    status: response=500
+  - method: EventAssessmentComplete
+    name: clinic_skills_check
+    count: 1
+    status: Fail

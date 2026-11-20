@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: GazeTargets
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 14-gaze-targets
+  number: 14
+  title: Gaze targets
+  series: Behaviour data
+  icon: eye
+  scenario: Greet a retail customer
+  realWorld: "Retail staff practice greeting a customer at the counter. Good service means looking at the customer, not at the shelf or a phone, so the training measures where the learner was looking when they spoke."
+  teaches: AbxrTarget, gaze scores
+  sceneName: GazeTargets
+  appWidePrefab: {fileID: 0}
+  whatThisShows: AbxrTarget marks what to measure attention on. Every event then
+    carries a gaze score per target, and the SDK sends gaze telemetry with it. On
+    desktop, the centre of the view stands in for gaze.
+  tryThis:
+  - Right-drag (or drag a finger) to look at the customer, then click Greet the customer.
+  - 'Greet again while looking at the phone on the counter: the customer_face score
+    drops and the phone''s rises.'
+  watchFor:
+  - Event("customer_greeted") with gaze_score_customer_face, gaze_score_product_shelf,
+    and gaze_score_phone under added by the SDK.
+  - A gaze telemetry row per target, sent with the event.
+  lessonScript: GazeTargetsSample.cs
+  lessonScriptLine: 20
+  dashboardNotes:
+  - methodPrefix: Event
+    nameSuffix: customer_greeted
+    note: Custom events, with a gaze score per target
+  - methodPrefix: Telemetry
+    nameSuffix: ' Gaze'
+    note: Gaze telemetry per target, per event
+  expectedOnPass:
+  - method: Event
+    name: customer_greeted
+    count: 1
+    atLeast: 0
+    status: 
+  - method: Telemetry
+    name: customer_face Gaze
+    count: 1
+    atLeast: 0
+    status: 
+  expectedOnFail:
+  - method: Event
+    name: customer_greeted
+    count: 1
+    atLeast: 0
+    status: 
+  - method: Telemetry
+    name: phone Gaze
+    count: 1
+    atLeast: 0
+    status: 

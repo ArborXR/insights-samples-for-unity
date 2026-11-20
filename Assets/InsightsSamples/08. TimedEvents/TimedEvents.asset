@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: TimedEvents
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 08-timed-events
+  number: 8
+  title: Timed events
+  series: Training results
+  icon: timer
+  scenario: Warehouse order pick
+  realWorld: "Warehouse pickers fill a three-line order against the clock. Operations leads track the same numbers on the real floor, pick time and mispicks per order, so training results can be compared with live performance."
+  teaches: StartTimedEvent, Event
+  sceneName: TimedEvents
+  appWidePrefab: {fileID: 0}
+  whatThisShows: 'StartTimedEvent times a task that isn''t an assessment, objective,
+    or interaction. It sends nothing itself: the next Event with the same name arrives
+    with a duration.'
+  tryThis:
+  - Click Accept order, pick the three ordered items into the tote, then click Scan
+    out.
+  - 'Click Next order and pick an item that isn''t on the ticket: the event reports
+    the mispick.'
+  watchFor:
+  - Event("order_pick", meta) with items_picked and mispicks, plus the duration the
+    SDK adds from StartTimedEvent.
+  - StartTimedEvent makes no record of its own, so it has no row.
+  lessonScript: TimedEventsSample.cs
+  lessonScriptLine: 30
+  dashboardNotes:
+  - methodPrefix: Event
+    nameSuffix: order_pick
+    note: 'Custom events: counts and metadata over time'
+  expectedOnPass:
+  - method: Event
+    name: order_pick
+    count: 1
+    atLeast: 0
+    status: mispicks=0
+  - method: Event
+    name: order_pick
+    count: 1
+    atLeast: 0
+    status: items_picked=3
+  expectedOnFail:
+  - method: Event
+    name: order_pick
+    count: 1
+    atLeast: 0
+    status: mispicks=1
+  - method: Event
+    name: order_pick
+    count: 1
+    atLeast: 0
+    status: items_picked=4

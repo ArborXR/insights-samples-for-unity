@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: MultipleChoice
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 05-multiple-choice
+  number: 5
+  title: Multiple choice
+  series: Training results
+  icon: hard-hat
+  scenario: Choose the right gloves for a chemical
+  realWorld: "A technician is about to degrease parts with mineral spirits and has to pick gloves from the cupboard. Latex and cotton break down in solvents; nitrile is right. Safety teams track which wrong choices people make, so they can fix the signage or the training."
+  teaches: InteractionType.Select
+  sceneName: MultipleChoice
+  appWidePrefab: {fileID: 0}
+  whatThisShows: A question with several options is a Select interaction. The response
+    is the ID of the chosen option, so Insights can show which wrong answers learners
+    pick.
+  tryThis:
+  - Click Begin task and choose nitrile gloves to pass.
+  - Try again and choose latex, cotton, or no gloves to fail.
+  - 'Begin, then leave without choosing: the question closes as Neutral.'
+  watchFor:
+  - EventInteractionStart("ppe_glove_selection") when the question appears.
+  - EventInteractionComplete with Abxr.InteractionType.Select, the result, and the
+    option ID as the response.
+  lessonScript: MultipleChoiceSample.cs
+  lessonScriptLine: 45
+  dashboardNotes:
+  - methodPrefix: EventInteraction
+    note: 'Interaction results: how often each option is chosen'
+  - methodPrefix: EventAssessment
+    note: 'Assessment results: pass rate, scores, and time to complete'
+  expectedOnPass:
+  - method: EventAssessmentStart
+    name: chemical_ppe
+    count: 1
+    status: 
+  - method: EventInteractionStart
+    name: ppe_glove_selection
+    count: 1
+    status: 
+  - method: EventInteractionComplete
+    name: ppe_glove_selection
+    count: 1
+    status: Correct
+  - method: EventInteractionComplete
+    name: ppe_glove_selection
+    count: 1
+    status: response=glove_nitrile
+  - method: EventAssessmentComplete
+    name: chemical_ppe
+    count: 1
+    status: Pass
+  expectedOnFail:
+  - method: EventAssessmentStart
+    name: chemical_ppe
+    count: 1
+    status: 
+  - method: EventInteractionStart
+    name: ppe_glove_selection
+    count: 1
+    status: 
+  - method: EventInteractionComplete
+    name: ppe_glove_selection
+    count: 1
+    status: Incorrect
+  - method: EventInteractionComplete
+    name: ppe_glove_selection
+    count: 1
+    status: response=glove_latex
+  - method: EventAssessmentComplete
+    name: chemical_ppe
+    count: 1
+    status: Fail

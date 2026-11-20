@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: CustomSignInUI
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 19-custom-sign-in-ui
+  number: 19
+  title: Custom sign-in UI
+  series: Without ArborXR MDM
+  icon: rectangle-ellipsis
+  scenario: Branded sign-in panel
+  realWorld: "Acme wants its sign-in and pairing screens to match the rest of its branded app. The SDK still runs sign-in and pairing; Acme's own panel only asks for the input and shows any error."
+  teaches: OnInputRequested, OnInputSubmitted, CancelPairing
+  sceneName: CustomSignInUI
+  appWidePrefab: {fileID: 0}
+  whatThisShows: 'Acme''s own panel replaces the SDK''s sign-in prompt: one OnInputRequested
+    handler shows the right input for each request and the SDK''s error on a retry,
+    then answers with OnInputSubmitted.'
+  tryThis:
+  - 'In a build with an App Token, Pair this device: the passcode request comes to
+    this panel. Not now calls CancelPairing.'
+  - 'Type a short code and submit: the SDK asks again, with an error.'
+  - 'Once paired, or on a device ArborXR manages, Sign in again: the app''s sign-in
+    (a PIN, an email, or a login) asks here too.'
+  watchFor:
+  - OnPairingStateChanged and OnAuthCompleted rows (System filter) as you pair and
+    sign in.
+  - Input requests and answers aren't records, so they have no row; the panel shows
+    them.
+  - 'Sign in again ends the session first, as in sample 15, so it also completes what
+    is open, such as the SDK''s DEFAULT assessment (Incomplete).'
+  lessonScript: CustomSignInUISample.cs
+  lessonScriptLine: 83
+  dashboardNotes: []
+  expectedOnPass:
+  - method: OnAuthCompleted
+    name: signed_in
+    count: 1
+    atLeast: 0
+    status: 
+  expectedOnFail: []

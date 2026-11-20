@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: Telemetry
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 13-telemetry
+  number: 13
+  title: Telemetry
+  series: Behaviour data
+  icon: activity
+  scenario: Weld along a seam
+  realWorld: "Welding trainees practice running a bead along a seam. Instructors care about technique, the torch's travel angle and its distance from the seam over time, not just the finished weld, so the app samples both several times a second while the learner welds."
+  teaches: TrackObject, Telemetry
+  sceneName: Telemetry
+  appWidePrefab: {fileID: 0}
+  whatThisShows: Telemetry is for continuous measurements. Abxr.Telemetry sends your
+    own at a steady rate while they matter; a TrackObject component samples an object's
+    position on its own.
+  tryThis:
+  - Hold the button on the torch and drag it along the seam, from one yellow mark
+    to the other.
+  - 'Weld again and wander off the seam: the weld fails, and distance_to_seam_mm
+    shows why.'
+  watchFor:
+  - One live torch_technique row, updating five times a second while you weld.
+  - weld_torch Position from TrackObject, once per Telemetry Tracking Period (10
+    s by default) while the torch moves and turns.
+  lessonScript: TelemetrySample.cs
+  lessonScriptLine: 34
+  dashboardNotes:
+  - methodPrefix: Telemetry
+    note: 'Telemetry: measurements over time, per session'
+  expectedOnPass:
+  - method: Telemetry
+    name: torch_technique
+    count: 1
+    atLeast: 1
+    status: 
+  expectedOnFail:
+  - method: Telemetry
+    name: torch_technique
+    count: 1
+    atLeast: 1
+    status: 

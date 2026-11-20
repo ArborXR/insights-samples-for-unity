@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: Assessments
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 02-assessments
+  number: 2
+  title: Assessments
+  series: Training results
+  icon: clipboard-check
+  scenario: Site safety induction quiz
+  realWorld: "New starters at a distribution center complete a site safety induction before they're allowed on the floor. The safety team sets the pass mark, and site managers need a record of who passed, who didn't, and how long it took."
+  teaches: EventAssessmentStart, EventAssessmentComplete
+  sceneName: Assessments
+  appWidePrefab: {fileID: 0}
+  whatThisShows: 'One quiz is one assessment: EventAssessmentStart when it begins,
+    then exactly one EventAssessmentComplete when it ends, with a 0-100 score and
+    a pass or fail status.'
+  tryThis:
+  - Click Start quiz and answer all three questions correctly to pass.
+  - Retake it and get one wrong to fail (2 of 3 scores 67, under the pass mark of 70).
+  - 'Start again, then click Next before finishing: the assessment closes as Incomplete.'
+  watchFor:
+  - EventAssessmentStart("site_induction") when the quiz begins.
+  - EventAssessmentComplete with the score and Abxr.EventStatus.Pass or Fail.
+  lessonScript: AssessmentsSample.cs
+  lessonScriptLine: 33
+  dashboardNotes:
+  - methodPrefix: EventAssessment
+    note: 'Assessment results: pass rate, scores, and time to complete'
+  expectedOnPass:
+  - method: EventAssessmentStart
+    name: site_induction
+    count: 1
+    status: 
+  - method: EventAssessmentComplete
+    name: site_induction
+    count: 1
+    status: Pass
+  expectedOnFail:
+  - method: EventAssessmentStart
+    name: site_induction
+    count: 1
+    status: 
+  - method: EventAssessmentComplete
+    name: site_induction
+    count: 1
+    status: Fail

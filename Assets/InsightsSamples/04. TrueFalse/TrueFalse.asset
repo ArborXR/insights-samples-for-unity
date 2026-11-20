@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: TrueFalse
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 04-true-false
+  number: 4
+  title: True/false interactions
+  series: Training results
+  icon: toggle-right
+  scenario: Spot the hazards in a workshop
+  realWorld: "Before a shift, team leads walk the workshop and flag hazards: a frayed cable, a blocked fire exit, an oil spill. A guarded bench grinder is there as a decoy, because a good inspector also knows what's safe. Each item is a yes-or-no judgment the safety team wants to measure."
+  teaches: EventInteractionStart, EventInteractionComplete, InteractionType.Bool
+  sceneName: TrueFalse
+  appWidePrefab: {fileID: 0}
+  whatThisShows: Each "is this a hazard?" question is a Bool interaction. The response
+    is "true" or "false", and the result says whether that was right. Flagging completes
+    the interaction, so its duration is the time to spot the hazard.
+  tryThis:
+  - Click Start inspection, flag the three hazards, leave the guarded grinder alone,
+    then click Finish to pass.
+  - 'Inspect again: flag the grinder and miss a hazard to fail (each false flag costs
+    34 points).'
+  - 'Leave mid-inspection: the unanswered questions close as Neutral.'
+  watchFor:
+  - Four EventInteractionStart rows when the inspection starts.
+  - EventInteractionComplete with Abxr.InteractionType.Bool as you flag each item,
+    and for the rest at Finish.
+  - EventAssessmentComplete("hazard_spotting") with the score.
+  lessonScript: TrueFalseSample.cs
+  lessonScriptLine: 82
+  dashboardNotes:
+  - methodPrefix: EventInteraction
+    note: 'Interaction results: accuracy and time to answer per question'
+  - methodPrefix: EventAssessment
+    note: 'Assessment results: pass rate, scores, and time to complete'
+  expectedOnPass:
+  - method: EventAssessmentStart
+    name: hazard_spotting
+    count: 1
+    status: 
+  - method: EventInteractionStart
+    name: 
+    count: 4
+    status: 
+  - method: EventInteractionComplete
+    name: 
+    count: 4
+    status: Correct
+  - method: EventAssessmentComplete
+    name: hazard_spotting
+    count: 1
+    status: Pass
+  expectedOnFail:
+  - method: EventAssessmentStart
+    name: hazard_spotting
+    count: 1
+    status: 
+  - method: EventInteractionStart
+    name: 
+    count: 4
+    status: 
+  - method: EventInteractionComplete
+    name: 
+    count: 2
+    status: Correct
+  - method: EventInteractionComplete
+    name: hazard_blocked_exit
+    count: 1
+    status: Incorrect
+  - method: EventInteractionComplete
+    name: decoy_guarded_grinder
+    count: 1
+    status: Incorrect
+  - method: EventAssessmentComplete
+    name: hazard_spotting
+    count: 1
+    status: Fail

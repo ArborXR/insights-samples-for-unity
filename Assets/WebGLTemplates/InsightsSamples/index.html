@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
+    <title>{{{ PRODUCT_NAME }}}</title>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #0F233F; }
+      canvas { position: fixed; inset: 0; width: 100%; height: 100%; background: #0F233F; outline: none; }
+      .loading {
+        position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 14px; color: #FFFFFF; font: 600 18px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      }
+      .loading-bar { width: 260px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.2); overflow: hidden; }
+      .loading-fill { width: 0; height: 100%; background: #5A58EB; transition: width 0.2s; }
+      .message {
+        position: fixed; top: 12px; left: 50%; transform: translateX(-50%); max-width: 80%; padding: 8px 14px;
+        border-radius: 6px; font: 14px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; display: none;
+      }
+      .message.warning { display: block; background: #F5B841; color: #242A35; }
+      .message.error { display: block; background: #E5484D; color: #FFFFFF; }
+    </style>
+  </head>
+  <body>
+    <!-- The canvas fills the window, so the samples' UI scales with the screen instead of a fixed box. -->
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <div class="loading" role="status">
+      <div>{{{ PRODUCT_NAME }}}</div>
+      <div class="loading-bar"><div class="loading-fill"></div></div>
+    </div>
+    <div class="message" role="alert"></div>
+    <script src="Build/{{{ LOADER_FILENAME }}}"></script>
+    <script>
+      const message = document.querySelector(".message");
+      function showBanner(text, type) {
+        if (type !== "error" && type !== "warning") return;
+        message.textContent = text;
+        message.className = "message " + type;
+        if (type === "warning") setTimeout(() => { message.className = "message"; }, 5000);
+      }
+
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        arguments: [],
+        dataUrl: "Build/{{{ DATA_FILENAME }}}",
+        frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
+#if USE_THREADS
+        workerUrl: "Build/{{{ WORKER_FILENAME }}}",
+#endif
+#if USE_WASM
+        codeUrl: "Build/{{{ CODE_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+        symbolsUrl: "Build/{{{ SYMBOLS_FILENAME }}}",
+#endif
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+        productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+        productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+        showBanner: showBanner,
+      }, (progress) => {
+        document.querySelector(".loading-fill").style.width = (100 * progress) + "%";
+      }).then(() => {
+        document.querySelector(".loading").remove();
+      }).catch((error) => showBanner(String(error), "error"));
+    </script>
+  </body>
+</html>

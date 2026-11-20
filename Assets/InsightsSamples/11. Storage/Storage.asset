@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: Storage
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 11-storage
+  number: 11
+  title: Storage
+  series: Context & identity
+  icon: hard-drive
+  scenario: Resume a long equipment course
+  realWorld: "Forklift technicians work through a three-chapter maintenance course over several days, often on different headsets. The course remembers where each learner stopped, and keeps a history of completed chapters for audits."
+  teaches: StorageSetEntry, StorageGetEntry, StorageRemoveEntry
+  sceneName: Storage
+  appWidePrefab: {fileID: 0}
+  whatThisShows: Save a learner's place in a long course with Insights storage, and
+    resume it on any headset. KeepLatest replaces an entry; AppendHistory adds to
+    it. User scope follows the learner; Device scope stays with this headset or browser,
+    and is all an app has when its sign-in identifies nobody.
+  tryThis:
+  - 'Complete a chapter or two, wait until the save rows show a green dot (sent), then
+    leave and come back: when signed in, the console resumes.'
+  - Reset progress removes the saved place; the history stays.
+  - 'Where the sign-in asks for no user, progress saves to this device instead: the
+    console says which.'
+  - Signed out, storage calls do nothing, and the Stream says so.
+  watchFor:
+  - 'Two StorageSetEntry rows per chapter: course_progress (KeepLatest) and attempt_history
+    (AppendHistory).'
+  - Reading and removing entries make no record, so they have no row.
+  lessonScript: StorageSample.cs
+  lessonScriptLine: 74
+  dashboardNotes:
+  - methodPrefix: Storage
+    note: 'Storage: app data per learner or device, not an analytics record'
+  expectedOnPass:
+  - method: StorageSetEntry
+    name: course_progress
+    count: 3
+    atLeast: 0
+    status: 
+  - method: StorageSetEntry
+    name: attempt_history
+    count: 3
+    atLeast: 0
+    status: 
+  expectedOnFail:
+  - method: StorageSetEntry
+    name: course_progress
+    count: 1
+    atLeast: 0
+    status: 
+  - method: StorageSetEntry
+    name: attempt_history
+    count: 1
+    atLeast: 0
+    status: 

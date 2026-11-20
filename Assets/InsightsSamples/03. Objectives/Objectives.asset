@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: Objectives
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 03-objectives
+  number: 3
+  title: Objectives
+  series: Training results
+  icon: lock-keyhole
+  scenario: Lockout/tagout on a conveyor
+  realWorld: "Maintenance technicians must lock out and tag out a conveyor before working on it. Skipping a step is how people get hurt when machinery restarts unexpectedly, so the training scores each step on its own, and supervisors review which steps learners miss."
+  teaches: EventObjectiveStart, EventObjectiveComplete
+  sceneName: Objectives
+  appWidePrefab: {fileID: 0}
+  whatThisShows: 'Each step of a procedure is an objective: EventObjectiveStart when
+    the step becomes current, then EventObjectiveComplete with a score and status.
+    The assessment rolls the steps up.'
+  tryThis:
+  - Click Begin lockout and do the five steps in order to pass.
+  - 'Start again and skip the main disconnect: that step fails, and so does the start
+    test (score 60).'
+  - 'Leave mid-procedure: the open objective and the assessment close as Incomplete.'
+  watchFor:
+  - EventObjectiveStart for each step as it becomes current.
+  - EventObjectiveComplete with 100 and Pass, or 0 and Fail for a skipped or failed
+    step.
+  - EventAssessmentComplete("lockout_tagout") with the mean of the step scores.
+  lessonScript: ObjectivesSample.cs
+  lessonScriptLine: 57
+  dashboardNotes:
+  - methodPrefix: EventObjective
+    note: 'Objective results: completion and scores per step'
+  - methodPrefix: EventAssessment
+    note: 'Assessment results: pass rate, scores, and time to complete'
+  expectedOnPass:
+  - method: EventAssessmentStart
+    name: lockout_tagout
+    count: 1
+    status: 
+  - method: EventObjectiveStart
+    name: 
+    count: 5
+    status: 
+  - method: EventObjectiveComplete
+    name: 
+    count: 5
+    status: Pass
+  - method: EventAssessmentComplete
+    name: lockout_tagout
+    count: 1
+    status: Pass
+  expectedOnFail:
+  - method: EventAssessmentStart
+    name: lockout_tagout
+    count: 1
+    status: 
+  - method: EventObjectiveStart
+    name: 
+    count: 5
+    status: 
+  - method: EventObjectiveComplete
+    name: 
+    count: 3
+    status: Pass
+  - method: EventObjectiveComplete
+    name: loto_isolate_energy
+    count: 1
+    status: Fail
+  - method: EventObjectiveComplete
+    name: loto_verify_zero_energy
+    count: 1
+    status: Fail
+  - method: EventAssessmentComplete
+    name: lockout_tagout
+    count: 1
+    status: Fail

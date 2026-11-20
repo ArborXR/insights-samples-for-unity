@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: SessionLifecycle
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 15-session-lifecycle
+  number: 15
+  title: Session lifecycle
+  series: Sessions & courses
+  icon: refresh-cw
+  scenario: Headset handed to the next trainee
+  realWorld: "Headsets are shared on a busy training day. When a trainee stops partway through a drill and hands the headset on, their unfinished work must close cleanly as incomplete, and the next trainee must start a session of their own."
+  teaches: EndSession, StartNewSession, OnQuit*, OnHeadsetPutOnNewSession
+  sceneName: SessionLifecycle
+  appWidePrefab: {fileID: 8519293607004389766, guid: f8c7d4ab5db2943208b2441426b6d104, type: 3}
+  whatThisShows: End one trainee's session cleanly and start the next. EndSession
+    closes anything still open with the OnQuit values and sends the queue; StartNewSession
+    then begins a fresh session.
+  tryThis:
+  - Start the drill, finish it, then hand the headset to the next trainee.
+  - 'Start the drill again and hand over mid-drill: the SDK closes it as Incomplete,
+    because OnQuitAssessmentStatus says so.'
+  - End session signs the headset out without starting another.
+  watchFor:
+  - 'Hand over mid-drill: the drill''s EventAssessmentComplete, made by the SDK with
+    auto_closed=true.'
+  - A new sign-in after StartNewSession (System filter), which makes no record. EndSession
+    records what it closes (the SDK's DEFAULT assessment, if no assessment is open)
+    and, when it closed anything, one log with how many.
+  lessonScript: SessionLifecycleSample.cs
+  lessonScriptLine: 72
+  dashboardNotes:
+  - methodPrefix: EventAssessment
+    nameSuffix: headset_handover_drill
+    note: 'Assessment results: pass rate, scores, and time to complete'
+  expectedOnPass:
+  - method: EventAssessmentStart
+    name: headset_handover_drill
+    count: 1
+    atLeast: 0
+    status: 
+  - method: EventAssessmentComplete
+    name: headset_handover_drill
+    count: 1
+    atLeast: 0
+    status: Pass
+  expectedOnFail:
+  - method: EventAssessmentStart
+    name: headset_handover_drill
+    count: 1
+    atLeast: 0
+    status: 
+  - method: EventAssessmentComplete
+    name: headset_handover_drill
+    count: 1
+    atLeast: 0
+    status: Incomplete
+  - method: EventAssessmentComplete
+    name: headset_handover_drill
+    count: 1
+    atLeast: 0
+    status: auto_closed=true

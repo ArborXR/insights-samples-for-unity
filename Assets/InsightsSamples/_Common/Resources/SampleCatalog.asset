@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df899097b383e421e9548fc9874aec2f, type: 3}
+  m_Name: SampleCatalog
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleCatalog
+  samples:
+  - {fileID: 11400000, guid: d4dd97d61ea3c4de48a669313bf1bba5, type: 2}
+  - {fileID: 11400000, guid: 79f363e95a98545e3997acfac41f79ca, type: 2}
+  - {fileID: 11400000, guid: 796d0d7dfd5fe46ad93b71d26bec7395, type: 2}
+  - {fileID: 11400000, guid: 7ae9f98ceed144f0bb892b0687024c88, type: 2}
+  - {fileID: 11400000, guid: 65e2769e0de4e4685aeb2d81da9c18e5, type: 2}
+  - {fileID: 11400000, guid: 1144c9b9cf00248efa79aca43bf0c815, type: 2}
+  - {fileID: 11400000, guid: a58e917355972472e9533fb319074040, type: 2}
+  - {fileID: 11400000, guid: 4e9b5540e5bcb4a6da7a8aabbb46c000, type: 2}
+  - {fileID: 11400000, guid: c41be22f7a78c44a9971b57588c57305, type: 2}
+  - {fileID: 11400000, guid: 1a9952a22af3046b78ae73f5e747c1f6, type: 2}
+  - {fileID: 11400000, guid: 22cd90f7c78b2498aab1945c4c1952d0, type: 2}
+  - {fileID: 11400000, guid: 71bb02bf2eee144b0822afb745f6e387, type: 2}
+  - {fileID: 11400000, guid: ce4477883720d460a90ace190d769cc0, type: 2}
+  - {fileID: 11400000, guid: b5c03fbfe655744268c6780c4288226d, type: 2}
+  - {fileID: 11400000, guid: e2155c6766b744a17b469f08c11f3e29, type: 2}
+  - {fileID: 11400000, guid: c8bbad21c92c44f25b6b561d954e1668, type: 2}
+  - {fileID: 11400000, guid: 99fa25e23c7ae43c1b034fb1ebdb1f66, type: 2}
+  - {fileID: 11400000, guid: 361eeca21e08439382737a3851ec24cb, type: 2}
+  - {fileID: 11400000, guid: 04cb7e86586a047dd9349a60796874b0, type: 2}
+  series:
+  - name: Getting connected
+    icon: plug-zap
+    hue: 165
+    note: 
+  - name: Training results
+    icon: graduation-cap
+    hue: 278
+    note: 
+  - name: Context & identity
+    icon: database
+    hue: 235
+    note: 
+  - name: Behaviour data
+    icon: activity
+    hue: 200
+    note: 
+  - name: Sessions & courses
+    icon: layers
+    hue: 60
+    note: 
+  - name: Feedback
+    icon: message-square-heart
+    hue: 350
+    note: 
+  - name: Without ArborXR MDM
+    icon: link
+    hue: 35
+    note: Only for devices ArborXR doesn't manage

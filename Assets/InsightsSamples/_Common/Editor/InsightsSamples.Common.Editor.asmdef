@@ -1,0 +1,11 @@
+{
+    "name": "InsightsSamples.Common.Editor",
+    "rootNamespace": "InsightsSamples.Common.Editor",
+    "references": [
+        "InsightsSamples.Common"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "autoReferenced": false
+}

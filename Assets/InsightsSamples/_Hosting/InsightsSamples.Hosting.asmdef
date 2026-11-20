@@ -1,0 +1,11 @@
+{
+    "name": "InsightsSamples.Hosting",
+    "rootNamespace": "InsightsSamples.Hosting",
+    "references": [
+        "InsightsSamples.Common",
+        "AbxrLib.Runtime",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
+    ],
+    "autoReferenced": false
+}

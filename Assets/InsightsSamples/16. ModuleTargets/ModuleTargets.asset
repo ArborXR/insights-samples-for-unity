@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: ModuleTargets
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 16-module-targets
+  number: 16
+  title: Module targets
+  series: Sessions & courses
+  icon: target
+  scenario: LMS-assigned forklift pre-shift check
+  realWorld: "A logistics company assigns forklift pre-shift checks through its LMS: tires, forks, and controls, in a set order. The headset opens whichever module the LMS asks for, and results flow back to each learner's LMS record."
+  teaches: OnModuleTarget, GetModuleList, OnAllModulesCompleted
+  sceneName: ModuleTargets
+  appWidePrefab: {fileID: 5484178059005661310, guid: 964c864b7c0994b529b2eefb48486493, type: 3}
+  whatThisShows: Every route into a module (its button, an LMS target, or a deep
+    link) goes through one entry point, and each module is its own assessment named
+    by the module ID.
+  tryThis:
+  - Open the Tires module and tag the forklift out to pass; call it safe to fail.
+  - 'Open a module by deep link: ?sample=16-module-targets&module=preshift_forks.'
+  - 'Try an unknown target (&module=preshift_brakes): it logs a warning and shows
+    the module list.'
+  watchFor:
+  - EventAssessmentStart and EventAssessmentComplete named by the module ID.
+  - With an LMS sequence, OnModuleTarget rows from the SDK (System filter).
+  lessonScript: ModuleTargetsSample.cs
+  lessonScriptLine: 70
+  dashboardNotes:
+  - methodPrefix: EventAssessment
+    note: Assessment results per module, which LMSs report as module completion
+  - methodPrefix: Log
+    note: 'Logs: developer diagnostics'
+  expectedOnPass:
+  - method: EventAssessmentStart
+    name: preshift_tires
+    count: 1
+    atLeast: 0
+    status: 
+  - method: EventAssessmentComplete
+    name: preshift_tires
+    count: 1
+    atLeast: 0
+    status: Pass
+  expectedOnFail:
+  - method: EventAssessmentStart
+    name: preshift_tires
+    count: 1
+    atLeast: 0
+    status: 
+  - method: EventAssessmentComplete
+    name: preshift_tires
+    count: 1
+    atLeast: 0
+    status: Fail

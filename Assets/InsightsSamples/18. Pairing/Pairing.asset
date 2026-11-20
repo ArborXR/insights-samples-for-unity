@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: Pairing
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 18-pairing
+  number: 18
+  title: Passcode pairing
+  series: Without ArborXR MDM
+  icon: key-round
+  scenario: Front-desk device setup
+  realWorld: "A front-desk device at a training center is being set up for the day. It isn't enrolled in ArborXR device management, so an admin pairs it once with a passcode from the Portal. From then on, every session on it reports to the organization's Insights."
+  teaches: OnPairingStateChanged, StartPairing, ClearPairing, GetLastPairingRedeemResult
+  sceneName: Pairing
+  appWidePrefab: {fileID: 5954259378784827763, guid: 3b418866fa6f43ff8c7d52784ed01379, type: 3}
+  whatThisShows: How a device without ArborXR MDM pairs with your organization, using
+    a passcode from the Portal. A device ArborXR manages already has its organization,
+    so none of this applies to it.
+  tryThis:
+  - In a WebGL or Android build, pair using a passcode from the Portal (Insights
+    Hub, Pairing Passcodes).
+  - 'Click Clear pairing: the pairing prompt comes back.'
+  - 'Enter a wrong passcode: the prompt shows the Portal''s error and asks again, so
+    you can enter the right one. Not now closes it, and the app carries on without
+    Insights.'
+  - 'Once paired, click Sign in again: the device signs in to your organization,
+    as in sample 01.'
+  - 'On a managed device, or a build that sends with an org token, Pair this device
+    and Clear pairing are off. A WebGL build with no App Token of its own switches
+    to pairing from the App button in the header: choose Pair with a passcode.'
+  watchFor:
+  - 'OnPairingStateChanged: Unpaired at startup, after Clear pairing, and after Not
+    now; Paired after a passcode. A wrong passcode changes nothing, so it has no row.'
+  - 'OnAuthCompleted: true once the device has paired.'
+  lessonScript: PairingSample.cs
+  lessonScriptLine: 39
+  dashboardNotes: []
+  expectedOnPass:
+  - method: OnAuthCompleted
+    name: signed_in
+    count: 1
+    atLeast: 0
+    status: 
+  expectedOnFail: []

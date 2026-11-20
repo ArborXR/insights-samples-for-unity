@@ -1,0 +1,10 @@
+{
+    "name": "InsightsSamples.Common",
+    "rootNamespace": "InsightsSamples.Common",
+    "references": [
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
+    ],
+    "autoReferenced": false
+}

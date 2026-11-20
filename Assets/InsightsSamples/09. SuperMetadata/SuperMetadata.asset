@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8d592803d6492b8f1f0ac1555a1ea, type: 3}
+  m_Name: SuperMetadata
+  m_EditorClassIdentifier: InsightsSamples.Common::InsightsSamples.Common.SampleInfo
+  id: 09-super-metadata
+  number: 9
+  title: Super metadata
+  series: Context & identity
+  icon: tags
+  scenario: Shipping labeller on an outbound line
+  realWorld: "The same print-and-apply labeller runs on outbound lines at two sites, in two languages. Every record should say which site and language it came from without each call repeating it, so reports can be split by site and by language."
+  teaches: Register, RegisterOnce, Unregister, Reset
+  sceneName: SuperMetadata
+  appWidePrefab: {fileID: 0}
+  whatThisShows: Register context once as super metadata, and the SDK adds it to
+    every later event, log, and telemetry entry. Individual calls stay short and
+    can't forget it.
+  tryThis:
+  - 'Switch the site and language, then click Print label: the label_printed event
+    carries both.'
+  - 'Click Unregister site, then print: the carton is still labelled, but its event
+    has no site, so reports can''t split it by site.'
+  - 'Watch first_site_seen: RegisterOnce keeps the first value.'
+  watchFor:
+  - Event("label_printed") with site, first_site_seen, and language_code under Added
+    by the SDK.
+  - Register, RegisterOnce, Unregister, and Reset make no record of their own.
+  lessonScript: SuperMetadataSample.cs
+  lessonScriptLine: 46
+  dashboardNotes:
+  - methodPrefix: Event
+    nameSuffix: label_printed
+    note: Custom events, with the registered context as metadata
+  expectedOnPass:
+  - method: Event
+    name: label_printed
+    count: 1
+    atLeast: 0
+    status: site=leeds_dc
+  - method: Event
+    name: label_printed
+    count: 1
+    atLeast: 0
+    status: first_site_seen=denver_dc
+  - method: Event
+    name: label_printed
+    count: 1
+    atLeast: 0
+    status: language_code=fr
+  expectedOnFail:
+  - method: Event
+    name: label_printed
+    count: 1
+    atLeast: 0
+    status: site=

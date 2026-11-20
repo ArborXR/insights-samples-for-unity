@@ -1,0 +1,14 @@
+{
+    "name": "InsightsSamples",
+    "rootNamespace": "InsightsSamples",
+    "references": [
+        "InsightsSamples.Common",
+        "InsightsSamples.Stream",
+        "AbxrLib.Runtime",
+        "AbxrLib.WorldSpace",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
+    ],
+    "autoReferenced": false
+}
